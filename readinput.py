@@ -2,12 +2,14 @@ import scipy.io
 import numpy as np
 import matplotlib.pyplot as plt
 
-#data = np.load("Datasets/ModelNet10/test_data_npy/bed/bed_0526.npy")
-data = np.load("Datasets/ModelNet10/test_data_npy/rectangle/res_rect_24.npy")
-#data = np.load("Datasets/ModelNet10/test_data_npy/chair/chair_0918.npy")
+# Purpose of the script:
+# - Load and visualizea point cloud data file of npy format
+# - This script is used for input data from category-specific keypoints network
+
+# Specify the path to the point cloud data file
+data_file = "path-to-npy-file"
 
 def show_input(data):
-    
     # Extract the x, y, and z coordinates from the data
     x = data[:, 0]
     y = data[:, 1]
@@ -20,8 +22,12 @@ def show_input(data):
     ax.scatter(x, z, y)
     plt.show()
 
-show_input(data)
-#for i in range(1, 21):
-#    print("cube:", i)
-#    data = np.load("Datasets/ModelNet10/test_data_npy/cube/filled_cube_{}.npy".format(i))
-#    show_input(data)
+def main():
+    # Load the point cloud data from the file
+    data = np.load(data_file)
+
+    # Visualize the point cloud
+    show_input(data)
+
+if __name__ == "__main__":
+    main()
