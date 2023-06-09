@@ -3,8 +3,18 @@ from mpl_toolkits import mplot3d
 import numpy as np
 import matplotlib.pyplot as plt
 
+# Purpose of the script:
+# - Load a MATLAB file containing point cloud data
+# - Remove duplicate points from the point cloud
+# - Visualize the point cloud in 3D using matplotlib
 
+# Path to the MATLAB file
+path = "path-to-mat-file"
+    
 def unique_point(nodes):
+    """
+    Function to remove duplicate points from the given list of nodes.
+    """
     x = [nodes[i][0] for i in range(0, len(nodes))]
     y = [nodes[i][1] for i in range(0, len(nodes))]
     z = [nodes[i][2] for i in range(0, len(nodes))]
@@ -20,32 +30,32 @@ def unique_point(nodes):
 
     return nodes_new
 
-#path = "Datasets/ModelNet10/results/table_10b/table_0402.mat"
-#path = "Datasets/ModelNet10/results/chair_10b/chair_0918.mat"
-#path = "Datasets/ModelNet10/results/bed_10b/bed_0526.mat"
-out_path = "bed_test_0393.obj"
 
 def show_mat(path):
-
+    """
+    Load the MATLAB file containing point cloud data, remove duplicate points, and visualize the point cloud.
+    """
+    # Load the MATLAB file
     mat = scipy.io.loadmat(path)
     nodes = mat["nodes"]
-    print(nodes)
 
+    # Remove duplicate points from the point cloud
     nodes = unique_point(nodes)
     x = [nodes[i][0] for i in range(0, len(nodes))]
     y = [nodes[i][1] for i in range(0, len(nodes))]
     z = [nodes[i][2] for i in range(0, len(nodes))]
 
+    # Create a 3D scatter plot of the point cloud
     fig = plt.figure()
     ax = plt.axes(projection="3d")
     ax.scatter3D(x, z, y, "gray")
     plt.show()
 
 
-#show_mat(path)
-for i in range(10, 27):
-    print("Cube:", i)
-    path = "Datasets/ModelNet10/results/rectangle_11a/res_rect_{}.mat".format(i)
+def main():
+    # Call the function to visualize the MATLAB file
     show_mat(path)
 
-# python train.py --dataset 'ModelNet10' --category 'bed' --ckpt_model 'bed_10b' --batch_size 32 --node_num 14 --node_knn_k_1 3 --basis_num 10 --input_pc_num 1600 --surface_normal_len 0
+
+if __name__ == "__main__":
+    main()
